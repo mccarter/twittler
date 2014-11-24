@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
+    <script src="moment.js"></script>
   </head>
   <body>
+    <button class="tweet_button">Reveal Thy Tweets</button>
+    <span><img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/twitter_circle_black-512.png"></span>
+
+
 
   
-   
 
-    <script>
+
+  <script>
 
       $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
-        var tweetButton = $body.prepend("<button>Generate Tweets</button>");
+      	var $body = $("body");
+        var tweetButton = $body.find("button");
 
         tweetButton.on("click", function(){
         var index = streams.home.length - 1;
           while(index >= 0){
             var tweet = streams.home[index];
-            var $tweet = $('<div></div>');
-            $tweet.text(tweet.created_at + ": " + '@' + tweet.user + ': ' + tweet.message);
+            var $tweet = $('<div class="tweet_block"></div>');
+            $tweet.text(moment(tweet.created_at).startOf('hour').fromNow() + ": " + '@' + tweet.user + ': ' + tweet.message);
             $tweet.appendTo($body);
             index -= 1;
           }
         })
-
       });
 
-    </script>
+  </script>
+
   </body>
 </html>
