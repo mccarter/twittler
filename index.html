@@ -7,31 +7,41 @@
     <script src="moment.js"></script>
   </head>
   <body>
-    <button class="tweet_button">Reveal Thy Tweets</button>
     <span><img src="https://cdn3.iconfinder.com/data/icons/free-social-icons/67/twitter_circle_black-512.png"></span>
+    <button class="tweet_button">Reveal Thy Tweets</button>
+    <section class="tweet_containter">
+      <h1>Tweet History</h1>
 
 
-
-  
-
-
+    </section>
   <script>
 
       $(document).ready(function(){
       	var $body = $("body");
         var tweetButton = $body.find("button");
 
-        tweetButton.on("click", function(){
-        var index = streams.home.length - 1;
-          while(index >= 0){
-            var tweet = streams.home[index];
-            var $tweet = $('<div class="tweet_block"></div>');
-            $tweet.text(moment(tweet.created_at).startOf('hour').fromNow() + ": " + '@' + tweet.user + ': ' + tweet.message);
-            $tweet.appendTo($body);
-            index -= 1;
-          }
-        })
-      });
+      //hover mouse event changes button color
+    
+	  tweetButton.hover(
+	    function() {
+	      $(this).addClass("hover");
+	    }, function() {
+	      $(this).removeClass("hover");
+	   }
+	 );
+
+    tweetButton.on("click", function(){
+      var index = streams.home.length - 1;
+        while(index >= 0){
+          var tweet = streams.home[index];
+          var $tweet = $('<div class="one_tweet"></div>');
+          $tweet.text(moment(tweet.created_at).startOf('hour').fromNow() + ": @"  + tweet.user +  ": " + tweet.message);
+          $tweet.appendTo($body.find($("section")));
+          index -= 1;
+        }
+
+      })
+    });
 
   </script>
 
